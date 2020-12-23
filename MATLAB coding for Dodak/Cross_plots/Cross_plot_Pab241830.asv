@@ -1,0 +1,82 @@
+% Cross plot analysis of Pab Sandstone Dhodak-03
+% Defining the data
+load data_Pab241830.txt
+Depth = data_Pab241830(:,1)
+Vsh = data_Pab241830(:,2)
+Vp = data_Pab241830(:,3)
+RHOB = data_Pab241830(:,4)
+PHIT = data_Pab241830(:,5)
+PHIE = data_Pab241830(:,6)
+
+% Porosity vs. Vp (Water-saturated Clean SS and Dry Shaly SS)
+% Raymer et al (1980)(Water saturated Clean SS)
+VpR = ((1-PHIT).^2)*5.5 + PHIT*1
+%Han's relation(Water Saturated Clean Sandstone)at 40 MPa
+VpC = 6.08 - 8.06*(PHIT)
+%Han's relation(Dry Shaly Sandstone with clay factor)at 40 MPa
+VpD = 5.41 - 6.35*(PHIT) - 2.87*(.05)
+
+% Cross plot
+figure(1)
+plot(PHIT,Vp,'*g')
+ylabel('Vp (km/s)')
+xlabel('Porosity (%)')
+title('Vp vs. Porosity for Pab Sandstone of Dhodak-03 (2418-2430m)')
+hold on
+plot(PHIT, VpR,'-b')
+hold on
+plot(PHIT,VpC,'-r')
+hold on
+plot(PHIT, VpD,'-m')
+
+% Porosity vs. Vp (For Water saturated Shaly Sandstone)
+% Tosaya et al. (1982) (Water saturated shaly Sandstone)
+VpT = 5.8 - 8.6*(PHIT) - 2.4*(.05)
+%Han's empirical relation(Water Saturated Shaly SS)40 MPa
+VpS = 5.59 - 6.93*(PHIT) - 2.13*(.05)
+% Castagna's et al. (1985)(Water Saturated Shaly SS)
+VpC = 5.81 - 9.42*PHIT - 2.21*(.05)
+% Cross plot
+figure(2)
+plot(PHIT,Vp,'*g')
+ylabel('Vp (km/s)')
+xlabel('Porosity (%)')
+title('Vp vs. Porosity for Pab Sandstone of Dhodak-03 (2418-2430m)')
+hold on
+plot(PHIT, VpT,'-b')
+hold on
+plot(PHIT, VpS,'-c')
+hold on
+plot(PHIT,VpC,'-m')
+
+% Castagna's et al. (1985)-Shaly sandstone
+VpC1 = 5.81 -9.42*PHIT - 2.21*(.05)
+VpC2 = 5.81 -9.42*PHIT - 2.21*(.10)
+VpC3 = 5.81 -9.42*PHIT - 2.21*(.15)
+% Cross plot
+figure(3)
+plot(PHIT,Vp,'*g')
+ylabel('Vp (km/s)')
+xlabel('Porosity (%)')
+hold on
+plot(PHIT, VpC1,'-m')
+hold on
+plot(PHIT, VpC2,'-b')
+hold on
+plot(PHIT,VpC3,'-c')
+
+% Density vs Vp
+% Blangy (1992) relations(Poorly consolidated sandstone)
+Rho1 = 1.498 + 0.224*Vp
+%  Jizba (1991) relation (Tight gas sandstone)
+Rho2 = 1.96 + 0.117*Vp
+% Cross plot
+figure(4)
+plot(Vp,RHOB,'*g')
+xlabel('Vp (km/s)')
+ylabel('Density (g/cc)')
+title('Density vs. Porosity for Pab Sandstone of Dhodak-03 (2418-2430m)')
+hold on
+plot(Vp,Rho1,'-b')
+hold on
+plot(Vp,Rho2,'-r')
